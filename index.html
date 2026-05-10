@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LKPD – Pantun Nasihat & Kiasan Bertema Lingkungan</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 12pt;
+    color: #1a1a1a;
+    background: #fff;
+    padding: 28px;
+    max-width: 820px;
+    margin: auto;
+  }
+
+  /* HEADER */
+  .header-wrap { border: 2.5px solid #1a1a1a; margin-bottom: 18px; overflow: hidden; }
+  .header-top { background: #154360; color: #fff; text-align: center; padding: 12px 16px; }
+  .header-top h1 { font-size: 14pt; font-weight: bold; margin-bottom: 3px; letter-spacing: 0.5px; }
+  .header-top .subtitle { font-size: 10pt; margin-top: 2px; }
+  .header-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 2px solid #1a1a1a;
+  }
+  .header-meta .field { padding: 6px 10px; border-right: 1px solid #1a1a1a; font-size: 10.5pt; }
+  .header-meta .field:nth-child(even) { border-right: none; }
+  .header-meta .field .line {
+    display: block;
+    border-bottom: 1px solid #555;
+    margin-top: 3px;
+    min-height: 18px;
+  }
+
+  /* LABEL PERTEMUAN */
+  .pertemuan-label {
+    background: #154360;
+    color: #fff;
+    font-size: 12pt;
+    font-weight: bold;
+    padding: 7px 14px;
+    margin: 20px 0 12px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pertemuan-label .icon {
+    background: #fff;
+    color: #154360;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10pt;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  /* SINTAKS LABEL */
+  .sintaks-label {
+    display: inline-block;
+    background: #d4e6f1;
+    color: #154360;
+    border: 1px solid #7fb3d3;
+    border-radius: 4px;
+    font-size: 9pt;
+    padding: 2px 9px;
+    margin-bottom: 6px;
+    font-weight: bold;
+  }
+  .sintaks-label.s4 { background: #d5f5e3; color: #1e8449; border-color: #58d68d; }
+  .sintaks-label.s5 { background: #fdebd0; color: #a04000; border-color: #f0a500; }
+  .sintaks-label.s6 { background: #f5eef8; color: #7d3c98; border-color: #c39bd3; }
+
+  /* SECTION */
+  .section { margin-bottom: 16px; border: 1.5px solid #2e86c1; border-radius: 4px; overflow: hidden; }
+  .section.green { border-color: #1e8449; }
+  .section.orange { border-color: #ca6f1e; }
+  .section.purple { border-color: #7d3c98; }
+  .section.dark { border-color: #154360; }
+
+  .section-header {
+    padding: 7px 12px;
+    font-size: 11pt;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    background: #2e86c1;
+  }
+  .section-header.green { background: #1e8449; }
+  .section-header.orange { background: #ca6f1e; }
+  .section-header.purple { background: #7d3c98; }
+  .section-header.dark { background: #154360; }
+
+  .section-body { padding: 12px 14px; }
+
+  /* INSTRUKSI */
+  .instruksi {
+    background: #fef9e7;
+    border-left: 4px solid #f1c40f;
+    padding: 8px 12px;
+    border-radius: 0 4px 4px 0;
+    font-size: 10.5pt;
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+
+  /* PANTUN CONTOH */
+  .pantun-box {
+    background: #eafaf1;
+    border: 1px solid #58d68d;
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-style: italic;
+    line-height: 2.2;
+    margin: 8px 0;
+    font-size: 11pt;
+  }
+  .pantun-label { font-weight: bold; font-style: normal; font-size: 9.5pt; color: #1e8449; margin-bottom: 4px; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 10.5pt; margin: 8px 0; }
+  th {
+    background: #d4e6f1;
+    color: #154360;
+    border: 1px solid #7fb3d3;
+    padding: 6px 8px;
+    text-align: center;
+    font-weight: bold;
+  }
+  th.green { background: #d5f5e3; color: #1e8449; border-color: #58d68d; }
+  th.orange { background: #fdebd0; color: #a04000; border-color: #f0a500; }
+  th.purple { background: #f5eef8; color: #7d3c98; border-color: #c39bd3; }
+  td { border: 1px solid #aaa; padding: 6px 8px; vertical-align: top; }
+  td.no { text-align: center; width: 7%; }
+  .isian { background: #f9f9f9; min-height: 28px; }
+  .isian-lg { background: #f9f9f9; min-height: 50px; }
+
+  /* ISIAN AREA */
+  .isian-area {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 8px;
+    background: #f9f9f9;
+    margin: 6px 0;
+  }
+  .dashed-line {
+    border-bottom: 1px dashed #999;
+    min-height: 26px;
+    margin: 5px 0;
+    padding: 2px 4px;
+  }
+
+  /* KARTU OBSERVASI */
+  .obs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+  .obs-card {
+    border: 1.5px solid #1e8449;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .obs-card .obs-header {
+    background: #1e8449;
+    color: #fff;
+    font-size: 9.5pt;
+    font-weight: bold;
+    padding: 5px 10px;
+  }
+  .obs-card .obs-body { padding: 8px 10px; background: #f9f9f9; }
+  .obs-card .obs-row { margin-bottom: 6px; }
+  .obs-card .obs-row label { font-size: 9pt; color: #555; display: block; margin-bottom: 2px; }
+  .obs-card .obs-row .line { border-bottom: 1px solid #aaa; min-height: 20px; }
+  .obs-card .obs-row .line-lg { border-bottom: 1px solid #aaa; min-height: 36px; }
+
+  /* SCAFFOLDING PANTUN */
+  .scaffold-box {
+    border: 1.5px dashed #2e86c1;
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 10px 0;
+    background: #eaf4fb;
+  }
+  .scaffold-box .sc-title {
+    font-size: 10pt;
+    font-weight: bold;
+    color: #154360;
+    margin-bottom: 8px;
+  }
+  .scaffold-row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .scaffold-row .sc-label {
+    font-size: 9.5pt;
+    font-weight: bold;
+    color: #154360;
+    background: #d4e6f1;
+    border-radius: 4px;
+    padding: 3px 6px;
+    text-align: center;
+  }
+  .scaffold-row .sc-line { border-bottom: 1px solid #85c1e9; min-height: 24px; }
+
+  /* KARYA PANTUN */
+  .karya-box {
+    border: 2px solid #154360;
+    border-radius: 6px;
+    padding: 14px;
+    margin: 10px 0;
+    background: #eaf4fb;
+  }
+  .karya-box .baris {
+    border-bottom: 1px solid #85c1e9;
+    min-height: 32px;
+    padding: 4px 6px;
+    font-style: italic;
+    font-size: 12pt;
+    margin: 4px 0;
+  }
+  .baris-label { font-size: 9pt; color: #555; margin-bottom: 2px; }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 5px 0 5px 28px;
+    border-bottom: 1px dashed #ccc;
+    font-size: 10.5pt;
+    position: relative;
+    line-height: 1.5;
+  }
+  .checklist li::before { content: "☐"; position: absolute; left: 4px; font-size: 13pt; color: #154360; }
+
+  /* REFLEKSI */
+  .refleksi-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 10px 0; }
+  .refleksi-card { border: 1px solid #c39bd3; border-radius: 6px; overflow: hidden; }
+  .refleksi-card .r-head { background: #7d3c98; color: #fff; text-align: center; padding: 8px; font-size: 9.5pt; font-weight: bold; }
+  .refleksi-card .r-body { min-height: 60px; background: #f9f9f9; padding: 6px; font-size: 10pt; }
+
+  /* EVALUASI */
+  .soal-box {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin: 8px 0;
+    background: #f9f9f9;
+  }
+  .soal-box .soal-num { font-weight: bold; color: #154360; }
+  .jawaban-area { border-bottom: 1px dashed #aaa; min-height: 26px; margin: 4px 0; }
+
+  /* PERENCANAAN */
+  .plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+  .plan-card { border: 1px solid #7fb3d3; border-radius: 6px; overflow: hidden; }
+  .plan-card .p-head { background: #2e86c1; color: #fff; font-size: 9.5pt; font-weight: bold; padding: 5px 10px; }
+  .plan-card .p-body { padding: 8px 10px; background: #f9f9f9; }
+  .plan-card .p-line { border-bottom: 1px dashed #aaa; min-height: 22px; margin: 4px 0; }
+
+  /* TIMELINE */
+  .timeline { list-style: none; padding: 0; margin: 8px 0; }
+  .timeline li {
+    display: grid;
+    grid-template-columns: 28px 120px 1fr;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 10.5pt;
+  }
+  .timeline li .tnum {
+    background: #154360;
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9pt;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  .timeline li .tkegiatan { font-size: 10pt; color: #154360; font-weight: bold; }
+  .timeline li .twaktu { border-bottom: 1px dashed #aaa; min-height: 20px; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 2px dashed #ccc; margin: 18px 0; }
+
+  /* FOOTER */
+  .footer-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9.5pt;
+    color: #555;
+    border-top: 1.5px solid #154360;
+    padding-top: 8px;
+    margin-top: 16px;
+  }
+
+  @media print {
+    body { padding: 12px; }
+    .section, .pertemuan-label { break-inside: avoid; }
+    .divider { border-top: 2px dashed #999; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<div class="header-wrap">
+  <div class="header-top">
+    <h1>LEMBAR KERJA PESERTA DIDIK (LKPD)</h1>
+    <div class="subtitle">Menulis Pantun Nasihat &amp; Kiasan Bertema Lingkungan Sekitar Sekolah</div>
+    <div class="subtitle" style="margin-top:3px;">Mata Pelajaran: Bahasa Indonesia &nbsp;|&nbsp; Fase C &nbsp;|&nbsp; Model: Project Based Learning (PjBL)</div>
+  </div>
+  <div class="header-meta">
+    <div class="field">Nama Siswa <span class="line"></span></div>
+    <div class="field">Kelas <span class="line"></span></div>
+    <div class="field">No. Absen <span class="line"></span></div>
+    <div class="field">Tanggal <span class="line"></span></div>
+    <div class="field">Nama Kelompok <span class="line"></span></div>
+    <div class="field">Anggota Kelompok <span class="line"></span></div>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!--         PERTEMUAN 1                        -->
+<!-- ========================================== -->
+<div class="pertemuan-label">
+  <span class="icon">1</span> PERTEMUAN 1 — Pertanyaan Mendasar &amp; Perencanaan Proyek
+</div>
+
+<!-- SINTAKS 1: PERTANYAAN MENDASAR -->
+<div class="section">
+  <div class="section-header">
+    <span>Sintaks 1 — Pertanyaan Mendasar</span>
+  </div>
+  <div class="section-body">
+    <div class="sintaks-label">Kegiatan Inti Pertemuan 1</div>
+    <div class="instruksi">
+      <b>📌 Petunjuk:</b> Setelah mengamati video/gambar kondisi lingkungan sekitar sekolahmu dan mendengar pertanyaan dari guru, tuliskan jawabanmu secara jujur dan penuh ide!
+    </div>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin-bottom:8px;">Pertanyaan Pemantik dari Guru:</p>
+    <div style="background:#eaf4fb; border:1px solid #85c1e9; border-radius:4px; padding:10px 14px; font-style:italic; font-size:11pt; margin-bottom:12px; line-height:1.7;">
+      "Bagaimana caranya kita menyampaikan keprihatinan, nasihat, atau harapan tentang isu lingkungan di sekitar sekolah ini, dengan cara yang <b>indah, menarik, dan mudah diingat</b> sehingga warga sekolah tersentak dan mau berubah?"
+    </div>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin-bottom:6px;">A. Tuliskan pendapatmu menjawab pertanyaan di atas!</p>
+    <div class="isian-area">
+      <div class="dashed-line"></div>
+      <div class="dashed-line"></div>
+      <div class="dashed-line"></div>
+    </div>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin: 10px 0 6px;">B. Menurut kamu, mengapa <u>pantun</u> bisa menjadi cara yang tepat untuk menyampaikan pesan tentang lingkungan?</p>
+    <div class="isian-area">
+      <div class="dashed-line"></div>
+      <div class="dashed-line"></div>
+      <div class="dashed-line"></div>
+    </div>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin: 10px 0 6px;">C. Isu lingkungan apa yang paling ingin kamu sampaikan kepada warga sekolah? Mengapa?</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Isu Lingkungan yang Ingin Disampaikan</th>
+          <th>Alasan Memilih Isu Ini</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="isian-lg">&nbsp;</td><td class="isian-lg">&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SINTAKS 2: MENDESAIN PERENCANAAN PROYEK -->
+<div class="section">
+  <div class="section-header">
+    <span>Sintaks 2 — Mendesain Perencanaan Proyek</span>
+  </div>
+  <div class="section-body">
+    <div class="sintaks-label">Kegiatan Inti Pertemuan 1</div>
+    <div class="instruksi">
+      <b>📌 Petunjuk:</b> Bersama kelompokmu, rencanakan proyek pembuatan pantun dengan mengisi seluruh bagian di bawah ini secara lengkap dan terperinci!
+    </div>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin-bottom:8px;">A. Pembagian Tugas Kelompok:</p>
+    <table>
+      <thead>
+        <tr>
+          <th class="no">No</th>
+          <th>Nama Anggota</th>
+          <th>Peran dalam Kelompok</th>
+          <th style="width:30%">Tugas yang Dikerjakan</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="no">1</td>
+          <td class="isian">&nbsp;</td>
+          <td>
+            <select style="width:100%; border:none; background:transparent; font-size:10pt; padding:2px;">
+              <option>-- Pilih Peran --</option>
+              <option>Pencatat Fakta</option>
+              <option>Pencari Kata / Rima</option>
+              <option>Penulis Pantun</option>
+              <option>Presentator</option>
+            </select>
+          </td>
+          <td class="isian">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="no">2</td>
+          <td class="isian">&nbsp;</td>
+          <td>
+            <select style="width:100%; border:none; background:transparent; font-size:10pt; padding:2px;">
+              <option>-- Pilih Peran --</option>
+              <option>Pencatat Fakta</option>
+              <option>Pencari Kata / Rima</option>
+              <option>Penulis Pantun</option>
+              <option>Presentator</option>
+            </select>
+          </td>
+          <td class="isian">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="no">3</td>
+          <td class="isian">&nbsp;</td>
+          <td>
+            <select style="width:100%; border:none; background:transparent; font-size:10pt; padding:2px;">
+              <option>-- Pilih Peran --</option>
+              <option>Pencatat Fakta</option>
+              <option>Pencari Kata / Rima</option>
+              <option>Penulis Pantun</option>
+              <option>Presentator</option>
+            </select>
+          </td>
+          <td class="isian">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="no">4</td>
+          <td class="isian">&nbsp;</td>
+          <td>
+            <select style="width:100%; border:none; background:transparent; font-size:10pt; padding:2px;">
+              <option>-- Pilih Peran --</option>
+              <option>Pencatat Fakta</option>
+              <option>Pencari Kata / Rima</option>
+              <option>Penulis Pantun</option>
+              <option>Presentator</option>
+            </select>
+          </td>
+          <td class="isian">&nbsp;</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin: 12px 0 8px;">B. Alat dan Bahan yang Diperlukan:</p>
+    <div class="plan-grid">
+      <div class="plan-card">
+        <div class="p-head">✏️ Alat</div>
+        <div class="p-body">
+          <div class="p-line"></div>
+          <div class="p-line"></div>
+          <div class="p-line"></div>
+        </div>
+      </div>
+      <div class="plan-card">
+        <div class="p-head">📦 Bahan</div>
+        <div class="p-body">
+          <div class="p-line"></div>
+          <div class="p-line"></div>
+          <div class="p-line"></div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin: 12px 0 8px;">C. Langkah-Langkah Kerja Proyek (urutkan sesuai rencana kelompokmu):</p>
+    <table>
+      <thead>
+        <tr>
+          <th class="no">No</th>
+          <th>Langkah Kegiatan yang Akan Dilakukan</th>
+          <th style="width:25%">Hasil yang Diharapkan</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="no">1</td><td class="isian">Observasi lingkungan sekitar sekolah</td><td class="isian">&nbsp;</td></tr>
+        <tr><td class="no">2</td><td class="isian">Mencatat fakta isu lingkungan</td><td class="isian">&nbsp;</td></tr>
+        <tr><td class="no">3</td><td class="isian">Menyusun draft pantun</td><td class="isian">&nbsp;</td></tr>
+        <tr><td class="no">4</td><td class="isian">Revisi &amp; finalisasi pantun</td><td class="isian">&nbsp;</td></tr>
+        <tr><td class="no">5</td><td class="isian">Latihan presentasi</td><td class="isian">&nbsp;</td></tr>
+        <tr><td class="no">6</td><td class="isian">Presentasi hasil karya</td><td class="isian">&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SINTAKS 3: MENYUSUN JADWAL -->
+<div class="section">
+  <div class="section-header">
+    <span>Sintaks 3 — Menyusun Jadwal Proyek</span>
+  </div>
+  <div class="section-body">
+    <div class="sintaks-label">Kegiatan Inti Pertemuan 1</div>
+    <div class="instruksi">
+      <b>📌 Petunjuk:</b> Bersama guru dan kelompokmu, susunlah timeline kegiatan proyek dari awal hingga presentasi. Tuliskan estimasi waktu untuk setiap tahap kegiatan!
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="no">No</th>
+          <th>Tahap Kegiatan</th>
+          <th style="width:18%">Pertemuan ke-</th>
+          <th style="width:20%">Estimasi Waktu</th>
+          <th style="width:20%">Penanggung Jawab</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="no">1</td>
+          <td>Observasi lingkungan sekitar sekolah</td>
+          <td class="isian" style="text-align:center;">2</td>
+          <td class="isian">&nbsp;</td>
+          <td class="isian">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="no">2</td>
+          <td>Diskusi data fakta + menyusun draft pantun</td>
+          <td class="isian" style="text-align:center;">2</td>
+          <td class="isian">&nbsp;</td>
+          <td class="isian">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="no">3</td>
+          <td>Revisi pantun + latihan presentasi</td>
+          <td class="isian" style="text-align:center;">2</td>
+          <td class="isian">&nbsp;</td>
+          <td class="isian">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="no">4</td>
+          <td>Presentasi hasil karya pantun</td>
+          <td class="isian" style="text-align:center;">2</td>
+          <td class="isian">&nbsp;</td>
+          <td class="isian">&nbsp;</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin: 12px 0 6px;">Garis Besar Rencana Kelompok Kami (disampaikan di akhir Pertemuan 1):</p>
+    <div class="isian-area">
+      <div class="dashed-line"></div>
+      <div class="dashed-line"></div>
+      <div class="dashed-line"></div>
+      <div class="dashed-line"></div>
+    </div>
+
+    <p style="font-size:9.5pt; color:#555; margin-top:8px; text-align:center; font-style:italic;">
+      ✅ Disepakati bersama guru pada Pertemuan 1 &nbsp;|&nbsp; Paraf Guru: _______________
+    </p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!--         PERTEMUAN 2                        -->
+<!-- ========================================== -->
+<hr class="divider">
+
+<div class="pertemuan-label">
+  <span class="icon">2</span> PERTEMUAN 2 — Pelaksanaan, Pengujian Hasil &amp; Evaluasi
+</div>
+
+<!-- SINTAKS 4 AKTIVITAS 1: OBSERVASI LAPANGAN -->
+<div class="section green">
+  <div class="section-header green">
+    <span>Sintaks 4 — Memonitor Keaktifan &amp; Perkembangan Proyek</span>
+  </div>
+  <div class="section-body">
+    <div class="sintaks-label s4">Aktivitas 1 — Observasi Lapangan</div>
+    <div class="instruksi">
+      <b>🔍 Petunjuk:</b> Keluarlah bersama kelompokmu! Amati area yang ditentukan oleh guru (halaman, taman, selokan, tempat sampah, dll). Catat minimal <b>3 isu lingkungan</b> yang kamu temukan secara nyata. Tuliskan fakta apa adanya!
+    </div>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin-bottom:8px;">Area Observasi Kelompok Kami: <span style="border-bottom:1px solid #aaa; display:inline-block; min-width:200px;">&nbsp;</span></p>
+
+    <div class="obs-grid">
+      <div class="obs-card">
+        <div class="obs-header">🌿 Isu Lingkungan 1</div>
+        <div class="obs-body">
+          <div class="obs-row"><label>Nama Isu:</label><div class="line"></div></div>
+          <div class="obs-row"><label>Fakta yang Diamati:</label><div class="line-lg"></div></div>
+          <div class="obs-row"><label>Lokasi Ditemukan:</label><div class="line"></div></div>
+          <div class="obs-row"><label>Dampak yang Dirasakan:</label><div class="line"></div></div>
+        </div>
+      </div>
+      <div class="obs-card">
+        <div class="obs-header">🌊 Isu Lingkungan 2</div>
+        <div class="obs-body">
+          <div class="obs-row"><label>Nama Isu:</label><div class="line"></div></div>
+          <div class="obs-row"><label>Fakta yang Diamati:</label><div class="line-lg"></div></div>
+          <div class="obs-row"><label>Lokasi Ditemukan:</label><div class="line"></div></div>
+          <div class="obs-row"><label>Dampak yang Dirasakan:</label><div class="line"></div></div>
+        </div>
+      </div>
+      <div class="obs-card">
+        <div class="obs-header">🏭 Isu Lingkungan 3</div>
+        <div class="obs-body">
+          <div class="obs-row"><label>Nama Isu:</label><div class="line"></div></div>
+          <div class="obs-row"><label>Fakta yang Diamati:</label><div class="line-lg"></div></div>
+          <div class="obs-row"><label>Lokasi Ditemukan:</label><div class="line"></div></div>
+          <div class="obs-row"><label>Dampak yang Dirasakan:</label><div class="line"></div></div>
+        </div>
+      </div>
+      <div class="obs-card" style="border-color:#aaa;">
+        <div class="obs-header" style="background:#888;">🌱 Isu Lingkungan 4 (Bonus)</div>
+        <div class="obs-body">
+          <div class="obs-row"><label>Nama Isu:</label><div class="line"></div></div>
+          <div class="obs-row"><label>Fakta yang Diamati:</label><div class="line-lg"></div></div>
+          <div class="obs-row"><label>Lokasi Ditemukan:</label><div class="line"></div></div>
+          <div class="obs-row"><label>Dampak yang Dirasakan:</label><div class="line"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin: 10px 0 6px;">Dari hasil observasi, isu mana yang dipilih kelompokmu untuk dijadikan pantun?</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Isu yang Dipilih</th>
+          <th>Alasan Memilih Isu Ini</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="isian-lg">&nbsp;</td><td class="isian-lg">&nbsp;</td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:9.5pt; color:#555; margin-top:6px; font-style:italic;">
+      ✅ Dicek oleh Guru &nbsp;|&nbsp; Paraf Guru: _______________ &nbsp;|&nbsp; Catatan: ___________________________
+    </p>
+  </div>
+</div>
+
+<!-- SINTAKS 4 AKTIVITAS 2 & 3: BIMBINGAN PANTUN -->
+<div class="section green">
+  <div class="section-header green">
+    <span>Sintaks 4 — Memonitor Keaktifan &amp; Perkembangan Proyek</span>
+  </div>
+  <div class="section-body">
+    <div class="sintaks-label s4">Aktivitas 2 &amp; 3 — Bimbingan &amp; Penulisan Pantun</div>
+    <div class="instruksi">
+      <b>✏️ Petunjuk:</b> Olah fakta hasil observasimu menjadi pantun! Ikuti langkah-langkah di bawah ini: mulai dari mengembangkan fakta, lalu berimajinasi, hingga menulis pantun utuh yang indah dan bermakna.
+    </div>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin-bottom:8px;">A. Mengolah Fakta Menjadi Kosakata Kreatif:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Kata/Fakta Biasa dari Observasi</th>
+          <th>Kata Kreatif / Kiasan yang Bisa Digunakan</th>
+          <th style="width:25%">Contoh Penggunaan dalam Kalimat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="isian">Contoh: <i>sampah</i></td>
+          <td class="isian">Contoh: <i>kardus basah, bungkus coklat, lidi berserak</i></td>
+          <td class="isian">Contoh: <i>lidi berserak di sudut got</i></td>
+        </tr>
+        <tr><td class="isian">&nbsp;</td><td class="isian">&nbsp;</td><td class="isian">&nbsp;</td></tr>
+        <tr><td class="isian">&nbsp;</td><td class="isian">&nbsp;</td><td class="isian">&nbsp;</td></tr>
+        <tr><td class="isian">&nbsp;</td><td class="isian">&nbsp;</td><td class="isian">&nbsp;</td></tr>
+        <tr><td class="isian">&nbsp;</td><td class="isian">&nbsp;</td><td class="isian">&nbsp;</td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin: 12px 0 8px;">B. Scaffolding Penulisan Pantun (ikuti alur: Fakta → Imajinasi → Pantun):</p>
+
+    <div class="scaffold-box">
+      <div class="sc-title">📋 Langkah 1 — Tuliskan FAKTA dari hasil observasi kelompokmu:</div>
+      <div class="scaffold-row">
+        <div class="sc-label">Fakta</div>
+        <div class="sc-line"></div>
+      </div>
+      <div class="scaffold-row">
+        <div class="sc-label" style="visibility:hidden;">Fakta</div>
+        <div class="sc-line"></div>
+      </div>
+    </div>
+
+    <div class="scaffold-box" style="border-color:#1e8449; background:#eafaf1;">
+      <div class="sc-title" style="color:#1e8449;">💭 Langkah 2 — Kembangkan dengan IMAJINASI (bayangkan dengan kata yang indah dan kiasan):</div>
+      <div class="scaffold-row">
+        <div class="sc-label" style="background:#d5f5e3; color:#1e8449;">Imajinasi</div>
+        <div class="sc-line" style="border-color:#58d68d;"></div>
+      </div>
+      <div class="scaffold-row">
+        <div class="sc-label" style="background:#d5f5e3; color:#1e8449; visibility:hidden;">Imajinasi</div>
+        <div class="sc-line" style="border-color:#58d68d;"></div>
+      </div>
+    </div>
+
+    <div class="scaffold-box" style="border-color:#154360; border-width:2px; background:#eaf4fb;">
+      <div class="sc-title" style="color:#154360;">✍️ Langkah 3 — Tulis PANTUN utuhmu (4 baris, rima a-b-a-b):</div>
+      <div class="scaffold-row">
+        <div class="sc-label">Baris 1</div>
+        <div class="sc-line"></div>
+      </div>
+      <div class="scaffold-row">
+        <div class="sc-label">Baris 2</div>
+        <div class="sc-line"></div>
+      </div>
+      <div class="scaffold-row">
+        <div class="sc-label">Baris 3</div>
+        <div class="sc-line"></div>
+      </div>
+      <div class="scaffold-row">
+        <div class="sc-label">Baris 4</div>
+        <div class="sc-line"></div>
+      </div>
+    </div>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin: 14px 0 6px;">C. KARYA PANTUN FINAL KELOMPOK KAMI ✨</p>
+    <p style="font-size:9.5pt; color:#555; margin-bottom:8px; font-style:italic;">Salinlah pantun terbaikmu di bawah ini setelah direvisi dan disetujui guru!</p>
+    <div class="karya-box">
+      <div style="font-size:9.5pt; color:#154360; font-weight:bold; margin-bottom:10px;">
+        Judul Pantun: <span style="border-bottom:1px solid #85c1e9; display:inline-block; min-width:250px;">&nbsp;</span>
+      </div>
+      <div class="baris-label">Baris 1 (Sampiran):</div>
+      <div class="baris">&nbsp;</div>
+      <div class="baris-label">Baris 2 (Sampiran):</div>
+      <div class="baris">&nbsp;</div>
+      <div class="baris-label">Baris 3 (Isi/Pesan):</div>
+      <div class="baris">&nbsp;</div>
+      <div class="baris-label">Baris 4 (Isi/Pesan):</div>
+      <div class="baris">&nbsp;</div>
+      <div style="margin-top:12px; display:flex; gap:20px; font-size:9.5pt; color:#555;">
+        <span>Rima baris 1 &amp; 3: <span style="border-bottom:1px solid #aaa; display:inline-block; min-width:70px;">&nbsp;</span></span>
+        <span>Rima baris 2 &amp; 4: <span style="border-bottom:1px solid #aaa; display:inline-block; min-width:70px;">&nbsp;</span></span>
+        <span>Jenis Pantun: <span style="border-bottom:1px solid #aaa; display:inline-block; min-width:100px;">&nbsp;</span></span>
+      </div>
+    </div>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin: 12px 0 6px;">D. Daftar Periksa Mandiri — Pastikan pantunmu sudah memenuhi syarat!</p>
+    <table>
+      <thead>
+        <tr>
+          <th class="no">No</th>
+          <th>Kriteria</th>
+          <th style="width:12%; text-align:center;">✓ / ✗</th>
+          <th style="width:28%">Catatan Perbaikan</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="no">1</td><td>Terdiri atas 4 baris dalam satu bait</td><td class="isian" style="text-align:center;">&nbsp;</td><td class="isian">&nbsp;</td></tr>
+        <tr><td class="no">2</td><td>Baris 1-2 adalah sampiran (tidak langsung berkaitan dengan isi)</td><td class="isian" style="text-align:center;">&nbsp;</td><td class="isian">&nbsp;</td></tr>
+        <tr><td class="no">3</td><td>Baris 3-4 mengandung pesan/nasihat tentang lingkungan</td><td class="isian" style="text-align:center;">&nbsp;</td><td class="isian">&nbsp;</td></tr>
+        <tr><td class="no">4</td><td>Berpola rima akhir a-b-a-b</td><td class="isian" style="text-align:center;">&nbsp;</td><td class="isian">&nbsp;</td></tr>
+        <tr><td class="no">5</td><td>Menggunakan kosakata kreatif / kiasan / majas</td><td class="isian" style="text-align:center;">&nbsp;</td><td class="isian">&nbsp;</td></tr>
+        <tr><td class="no">6</td><td>Berdasarkan fakta nyata dari hasil observasi</td><td class="isian" style="text-align:center;">&nbsp;</td><td class="isian">&nbsp;</td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:9.5pt; color:#555; margin-top:8px; font-style:italic;">
+      ✅ Disetujui Guru &nbsp;|&nbsp; Paraf Guru: _______________ &nbsp;|&nbsp; Catatan: ___________________________
+    </p>
+  </div>
+</div>
+
+<!-- SINTAKS 5: MENGUJI HASIL -->
+<div class="section orange">
+  <div class="section-header orange">
+    <span>Sintaks 5 — Menguji Hasil (Presentasi Karya)</span>
+  </div>
+  <div class="section-body">
+    <div class="sintaks-label s5">Kegiatan Presentasi Pertemuan 2</div>
+    <div class="instruksi">
+      <b>🎤 Petunjuk:</b> Tampilkan pantun hasil karya kelompokmu di depan teman, guru, atau warga sekolah! Setelah presentasi, isi catatan berikut ini.
+    </div>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin-bottom:8px;">A. Persiapan Sebelum Presentasi:</p>
+    <ul class="checklist">
+      <li>Seluruh anggota kelompok sudah hafal/siap membacakan pantun</li>
+      <li>Suara sudah dilatih agar lantang, jelas, dan ekspresif</li>
+      <li>Kami mampu menjelaskan makna dan pesan pantun kepada audiens</li>
+      <li>Media presentasi (poster/kertas karton) sudah disiapkan</li>
+      <li>Urutan anggota yang tampil sudah disepakati bersama</li>
+    </ul>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin: 12px 0 8px;">B. Catatan Saat Presentasi (diisi setelah tampil):</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Pertanyaan / Tanggapan dari Audiens</th>
+          <th>Jawaban / Respons Kelompok Kami</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="isian-lg">&nbsp;</td><td class="isian-lg">&nbsp;</td></tr>
+        <tr><td class="isian-lg">&nbsp;</td><td class="isian-lg">&nbsp;</td></tr>
+        <tr><td class="isian-lg">&nbsp;</td><td class="isian-lg">&nbsp;</td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin: 12px 0 8px;">C. Penilaian Antarteman (diisi oleh kelompok penilai):</p>
+    <p style="font-size:9.5pt; color:#555; margin-bottom:6px;">Nama Kelompok yang Dinilai: <span style="border-bottom:1px solid #aaa; display:inline-block; min-width:180px;">&nbsp;</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th class="no">No</th>
+          <th>Aspek yang Dinilai</th>
+          <th style="width:12%; text-align:center;">★★★★</th>
+          <th style="width:12%; text-align:center;">★★★</th>
+          <th style="width:12%; text-align:center;">★★</th>
+          <th style="width:12%; text-align:center;">★</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="no">1</td><td>Kejelasan suara saat membacakan pantun</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="no">2</td><td>Kesesuaian pantun dengan ciri-ciri pantun (4 baris, rima a-b-a-b)</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="no">3</td><td>Kreativitas kosakata dan keindahan bahasa</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="no">4</td><td>Kedalaman pesan lingkungan yang disampaikan</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="no">5</td><td>Kepercayaan diri saat tampil</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+          <td class="isian" style="text-align:center;">&nbsp;</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:9.5pt; color:#555; margin-top:4px;">Komentar/Apresiasi untuk kelompok ini: <span style="border-bottom:1px solid #aaa; display:inline-block; min-width:300px;">&nbsp;</span></p>
+  </div>
+</div>
+
+<!-- SINTAKS 6: EVALUASI PENGALAMAN BELAJAR -->
+<div class="section purple">
+  <div class="section-header purple">
+    <span>Sintaks 6 — Evaluasi Pengalaman Belajar (Refleksi)</span>
+  </div>
+  <div class="section-body">
+    <div class="sintaks-label s6">Refleksi Kelompok &amp; Kelas — Pertemuan 2</div>
+    <div class="instruksi">
+      <b>💭 Petunjuk:</b> Setelah semua kelompok presentasi, tuliskan refleksi kelompokmu secara jujur. Jawab pertanyaan berikut, boleh dalam bentuk <b>pantun atau tulisan bebas</b>!
+    </div>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin-bottom:8px;">A. Refleksi Kelompok:</p>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:35%">Pertanyaan Refleksi</th>
+          <th>Jawaban Kelompok Kami <i>(boleh berupa pantun atau tulisan bebas)</i></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:bold; background:#f5eef8;">Apa kendala terbesar saat membuat pantun?</td>
+          <td class="isian-lg">&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold; background:#f5eef8;">Apa hal paling menyenangkan dari proyek ini?</td>
+          <td class="isian-lg">&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold; background:#f5eef8;">Apa yang akan kalian perbaiki jika membuat pantun lagi?</td>
+          <td class="isian-lg">&nbsp;</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin: 12px 0 8px;">B. Refleksi Pribadi (diisi masing-masing anggota):</p>
+    <div class="refleksi-grid">
+      <div class="refleksi-card">
+        <div class="r-head">💡 Yang Aku Pelajari</div>
+        <div class="r-body">&nbsp;</div>
+      </div>
+      <div class="refleksi-card">
+        <div class="r-head">🌱 Hubungan Pantun &amp; Lingkungan</div>
+        <div class="r-body">&nbsp;</div>
+      </div>
+      <div class="refleksi-card">
+        <div class="r-head">🤝 Pengalaman Kerja Kelompok</div>
+        <div class="r-body">&nbsp;</div>
+      </div>
+    </div>
+
+    <p style="font-size:10.5pt; font-weight:bold; margin: 12px 0 6px;">C. Pesan Lingkungan yang Ingin Kami Sampaikan kepada Dunia:</p>
+    <div class="isian-area" style="min-height:50px; font-style:italic;">&nbsp;</div>
+  </div>
+</div>
+
+<!-- SOAL EVALUASI -->
+<div class="section dark">
+  <div class="section-header dark">
+    <span>Soal Evaluasi — Kegiatan Penutup Pertemuan 2</span>
+  </div>
+  <div class="section-body">
+    <div class="instruksi">
+      <b>📝 Petunjuk:</b> Kerjakan soal berikut secara <b>mandiri</b> (tanpa berdiskusi dengan teman). Jawab dengan tepat dan jelas!
+    </div>
+
+    <div class="soal-box">
+      <p class="soal-num">1. Jelaskan perbedaan antara pantun nasihat dan pantun kiasan! Berikan masing-masing 1 contoh baris isinya.</p>
+      <div class="jawaban-area"></div>
+      <div class="jawaban-area"></div>
+      <div class="jawaban-area"></div>
+    </div>
+
+    <div class="soal-box">
+      <p class="soal-num">2. Perhatikan pantun berikut:</p>
+      <div class="pantun-box" style="margin:6px 0; font-size:10.5pt; line-height:1.8;">
+        Buah pepaya jatuh ke tanah,<br>
+        Dipungut anak di tepi jalan.<br>
+        Jika sampah dibuang sembarang,<br>
+        Banjir datang tak bisa ditahan.
+      </div>
+      <p style="margin: 6px 0; font-size:10.5pt;">a. Manakah baris sampiran dan baris isi? Tuliskan!</p>
+      <div class="jawaban-area"></div>
+      <div class="jawaban-area"></div>
+      <p style="margin: 8px 0 4px; font-size:10.5pt;">b. Apakah rima akhir pantun tersebut sudah berpola a-b-a-b? Buktikan!</p>
+      <div class="jawaban-area"></div>
+      <div class="jawaban-area"></div>
+    </div>
+
+    <div class="soal-box">
+      <p class="soal-num">3. Lengkapilah pantun berikut dengan baris isi (baris 3 dan 4) yang sesuai dengan tema lingkungan dan berpola rima yang tepat!</p>
+      <div class="pantun-box" style="margin:6px 0; font-size:10.5pt; line-height:1.8;">
+        Pohon rindang di tepi kali,<br>
+        Daunnya gugur saat angin berhembus.<br>
+        <span style="color:#154360; font-style:normal; font-weight:bold;">3. ____________________________________</span><br>
+        <span style="color:#154360; font-style:normal; font-weight:bold;">4. ____________________________________</span>
+      </div>
+    </div>
+
+    <div class="soal-box">
+      <p class="soal-num">4. Tuliskan 1 bait pantun nasihat <b>ciptaanmu sendiri</b> bertema isu lingkungan. Gunakan kosakata yang kreatif dan indah!</p>
+      <div class="karya-box" style="margin-top:8px;">
+        <div class="baris">&nbsp;</div>
+        <div class="baris">&nbsp;</div>
+        <div class="baris">&nbsp;</div>
+        <div class="baris">&nbsp;</div>
+      </div>
+    </div>
+
+    <div class="soal-box">
+      <p class="soal-num">5. Menurutmu, mengapa penting bagi kita untuk menyampaikan kepedulian terhadap lingkungan melalui karya sastra seperti pantun? Jelaskan dengan bahasamu sendiri!</p>
+      <div class="jawaban-area"></div>
+      <div class="jawaban-area"></div>
+      <div class="jawaban-area"></div>
+      <div class="jawaban-area"></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-info">
+  <span>Kurikulum Merdeka | Bahasa Indonesia | Fase C</span>
+  <span>Model PjBL | 2 Pertemuan</span>
+  <span>Nilai: _______ / Paraf Guru: ___________</span>
+</div>
+
+</body>
+</html>
